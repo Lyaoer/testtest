@@ -1,15 +1,15 @@
 apiVersion: v1
 kind: Template
 metadata:
-  name: khuk
+  name: testa
 message: |-
-  Congratulations on deploying khuk into OpenShift!
+  Congratulations on deploying testa into OpenShift!
 
 objects:
 - apiVersion: v1
   kind: ImageStream
   metadata:
-    name: khuk
+    name: testa
   spec:
     tags:
       - name: latest
@@ -23,16 +23,16 @@ objects:
   metadata:
     creationTimestamp: null
     labels:
-      app: khuk
-      template: khuk
-    name: khuk
+      app: testa
+      template: testa
+    name: testa
   spec:
     ports:
     - port: 8080
       protocol: TCP
       targetPort: 8080
     selector:
-      app: khuk
+      app: testa
     sessionAffinity: None
     type: ClusterIP
   status:
@@ -42,14 +42,14 @@ objects:
   metadata:
     creationTimestamp: null
     labels:
-      app: khuk
-      template: khuk
-    name: khuk
+      app: testa
+      template: testa
+    name: testa
   spec:
     replicas: 1
     selector:
-      app: khuk
-      deploymentconfig: khuk
+      app: testa
+      deploymentconfig: testa
     strategy:
       type: Recreate
       recreateParams:
@@ -60,15 +60,15 @@ objects:
       metadata:
         creationTimestamp: null
         labels:
-          app: khuk
-          deploymentconfig: khuk
-          template: khuk
+          app: testa
+          deploymentconfig: testa
+          template: testa
       spec:
         replicas: 1
         containers:
         - image: api:latest
           imagePullPolicy: Always
-          name: khuk
+          name: testa
           ports:
           - containerPort: 8080
             protocol: TCP
@@ -111,25 +111,25 @@ objects:
       imageChangeParams:
         automatic: true
         containerNames:
-          - khuk
+          - testa
         from:
           kind: ImageStreamTag
-          name: 'khuk:latest'
+          name: 'testa:latest'
     - type: ConfigChange
   status: {}
 - apiVersion: v1
   kind: Route
   metadata:
-    name: khuk
+    name: testa
     creationTimestamp: null
     labels:
-      app: khuk
-      template: khuk
+      app: testa
+      template: testa
   spec:
     host: ${API_ROUTE}
     to:
       kind: Service
-      name: khuk
+      name: testa
       weight: 100
     tls:
       termination: edge
@@ -140,12 +140,12 @@ parameters:
 - name: DOCKER_IMAGE
   displayName: Application Docker Image
   description: The docker image containing your application.
-  value: khuk/khuk:latest
+  value: testa/testa:latest
   required: true
 - name: API_ROUTE
   displayName: API Route Name
   description: The route name to use for the API.
-  value: khuk.example.com
+  value: testa.example.com
   required: true
 - name: API_MEM_LIMIT
   displayName: API Max Memory Limit
